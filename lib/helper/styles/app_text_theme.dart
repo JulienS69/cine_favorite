@@ -1,4 +1,4 @@
-import 'package:cine_favorite/helper/app_style.dart';
+import 'package:cine_favorite/helper/styles/app_style.dart';
 import 'package:flutter/material.dart';
 
 class TextThemes {

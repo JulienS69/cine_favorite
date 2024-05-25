@@ -1,4 +1,5 @@
 import 'package:cine_favorite/helper/styles/app_theme.dart';
+import 'package:cine_favorite/helper/utils.dart';
 import 'package:cine_favorite/navigation/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
+      scaffoldMessengerKey: scaffoldMessengerKey,
     );
   }
 }

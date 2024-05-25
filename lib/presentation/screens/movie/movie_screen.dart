@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
 import 'package:cine_favorite/helper/utils.dart';
 import 'package:cine_favorite/presentation/screens/movie/widgets/movie_card.dart';
-import 'package:cine_favorite/providers.dart';
+import 'package:cine_favorite/providers/movie/movie_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @RoutePage()
@@ -29,20 +30,41 @@ class MoviesPage extends ConsumerWidget {
       data: (eitherMovies) {
         return eitherMovies.fold(
           (failure) => const Text(
-              'Error: Une erreur est survenue lors de la récupération des films'),
+              'Erreur: Une erreur est survenue lors de la récupération des films'),
           (movies) {
             return ListView.builder(
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 Movie currentMovie = movies[index];
-                return MovieCard(currentMovie: currentMovie);
+                final favoriteNotifier = ref.watch(
+                    favoriteNotifierProvider(currentMovie.id ?? 0).notifier);
+                final isFavorite =
+                    ref.watch(favoriteNotifierProvider(currentMovie.id ?? 0));
+                return MovieCard(
+                  currentMovie: currentMovie,
+                  onTapFav: () async {
+                    await HapticFeedback.vibrate();
+                    await favoriteNotifier.toggleFavorite();
+                  },
+                  isFavorite: isFavorite,
+                );
               },
             );
           },
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text('Error: $error')),
+      error: (error, stackTrace) => const Center(
+          child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Erreur: Une erreur est survenue lors de la récupération des films',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      )),
     );
   }
 }

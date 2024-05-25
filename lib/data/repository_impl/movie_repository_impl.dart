@@ -11,4 +11,13 @@ class MovieRepositoryImpl {
   Future<Either<List<Movie>, dynamic>> fetchMovies() async {
     return await apiClient.getTopMoviesDaily();
   }
+
+  // UPDATE MOVIE
+  Future<Either<Map<String, dynamic>, dynamic>> updateMovie({
+    required int movieId,
+    required bool isFavorite,
+  }) async {
+    return await apiClient.addFavoriteMovie(
+        isFavorite: isFavorite, movieId: movieId);
+  }
 }

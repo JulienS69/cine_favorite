@@ -28,4 +28,24 @@ class MovieRepository extends RestApiRepository {
       ),
     );
   }
+
+  Future<Either<Map<String, dynamic>, dynamic>> addFavoriteMovie({
+    required bool isFavorite,
+    required int movieId,
+  }) async {
+    return await handlingPostResponse(
+        queryRoute: "account/21286836/favorite",
+        body: {
+          "media_type": "movie",
+          "media_id": movieId,
+          "favorite": isFavorite,
+        }).then(
+      (value) => value.fold(
+        (failure) => left(failure),
+        (success) {
+          return right(success);
+        },
+      ),
+    );
+  }
 }

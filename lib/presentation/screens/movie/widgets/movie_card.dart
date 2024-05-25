@@ -1,21 +1,25 @@
 import 'package:cine_favorite/data/models/movie/movie.dart';
 import 'package:cine_favorite/helper/styles/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../helper/styles/app_style.dart';
 
-class MovieCard extends StatelessWidget {
-  const MovieCard({
+class MovieCard extends ConsumerWidget {
+  MovieCard({
     super.key,
     required this.currentMovie,
+    required this.onTapFav,
+    required this.isFavorite,
   });
 
   final Movie currentMovie;
+  void Function()? onTapFav;
+  bool isFavorite;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -81,12 +85,14 @@ class MovieCard extends StatelessWidget {
                             //ICON FAVORITE WITH NO ACTION
                             //TODO ACTION FOR FAV
                             InkWell(
-                              onTap: () async {
-                                await HapticFeedback.vibrate();
+                              onTap: () {
+                                onTapFav!();
                               },
-                              child: const Icon(
-                                Icons.favorite_outline,
-                                color: Colors.red,
+                              child: Icon(
+                                !isFavorite
+                                    ? Icons.favorite_outline
+                                    : Icons.favorite,
+                                color: isFavorite ? Colors.red : Colors.blue,
                               ),
                             ),
                           ],

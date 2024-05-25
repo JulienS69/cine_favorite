@@ -1,19 +1,12 @@
+// Provider for MovieRepository
 import 'package:cine_favorite/core/repositories/movies_repository.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
 import 'package:cine_favorite/data/repository_impl/movie_repository_impl.dart';
-import 'package:cine_favorite/helper/utils.dart';
+import 'package:cine_favorite/providers/movie/favorite_notifier.dart';
+import 'package:cine_favorite/providers/providers.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// Provider for Dio instance
-final tmdbHttpClientProvider = Provider<Dio>(
-  (ref) {
-    return getDioClient();
-  },
-);
-
-// Provider for MovieRepository
 final movieApiClientProvider = Provider<MovieRepository>((ref) {
   final tmdbClient = ref.watch(tmdbHttpClientProvider);
   return MovieRepository(tmdbClient: tmdbClient);
@@ -31,3 +24,12 @@ final moviesProvider =
   final repository = ref.read(movieRepositoryProvider);
   return await repository.fetchMovies();
 });
+
+//Provider for adding movies to a favorites list
+final favoriteNotifierProvider =
+    StateNotifierProvider.family<FavoriteNotifier, bool, int>(
+  (ref, movieId) {
+    const isFavorite = false;
+    return FavoriteNotifier(ref, movieId: movieId, isFavorite: isFavorite);
+  },
+);

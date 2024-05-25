@@ -7,6 +7,13 @@ showLogOnRequest({required RequestOptions options}) {
   if (options.queryParameters.isNotEmpty) {
     log('\x1B[93mQUERYPARAMS => ${options.queryParameters}\x1B[0m');
   }
+  if (options.data != null) {
+    if (options.data is FormData) {
+      log('\x1B[93mmREQUEST FORMDATA BODY FIELDS => ${options.data.fields.toList().toString()}\x1B[0m');
+    } else {
+      log('\x1B[93mREQUEST BODY => ${options.data}\x1B[0m');
+    }
+  }
 }
 
 showLogOnResponse({required Response response}) {

@@ -9,7 +9,8 @@ class RestApiInterceptor extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     showLogOnRequest(options: options);
     //PRIVATE TOKEN HERE
-    String currentApiKey = "";
+    String currentApiKey =
+        "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMzg0YmIyMDM3YTc1ODc3NjBmYjhmYzkxNmRjNjU2YiIsInN1YiI6IjY2NTA3MzFiYWJkODlmMjA4N2VjNGMyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BuWPKF2xS6UHIp6goMHICVjTpBqtZDhhM_U-hNGSLCE";
     options.headers["Authorization"] = 'Bearer $currentApiKey';
     return super.onRequest(options, handler);
   }

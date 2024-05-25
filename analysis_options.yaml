@@ -31,3 +31,4 @@ analyzer:
 
   errors:
     invalid_annotation_target: ignore
+    depend_on_referenced_packages: false

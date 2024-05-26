@@ -34,7 +34,7 @@ class MovieRepository extends RestApiRepository {
     required int movieId,
   }) async {
     return await handlingPostResponse(
-        queryRoute: "account/21286836/favorite",
+        queryRoute: "/account/21286836/favorite",
         body: {
           "media_type": "movie",
           "media_id": movieId,

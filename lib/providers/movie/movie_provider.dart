@@ -12,7 +12,7 @@ final movieApiClientProvider = Provider<MovieRepository>((ref) {
   return MovieRepository(tmdbClient: tmdbClient);
 });
 
-// Provider for MovieController
+// Provider for MovieRepositoryImplementation
 final movieRepositoryProvider = Provider<MovieRepositoryImpl>((ref) {
   final apiClient = ref.read(movieApiClientProvider);
   return MovieRepositoryImpl(apiClient);
@@ -31,5 +31,14 @@ final favoriteNotifierProvider =
   (ref, movieId) {
     const isFavorite = false;
     return FavoriteNotifier(ref, movieId: movieId, isFavorite: isFavorite);
+  },
+);
+
+//Provider for adding movies to a favorites list
+final disslikeMovieNotifierProvider =
+    StateNotifierProvider.family<FavoriteNotifier, bool, int>(
+  (ref, movieId) {
+    return FavoriteNotifier(ref,
+        movieId: movieId, isFavorite: false, isDissliked: true);
   },
 );

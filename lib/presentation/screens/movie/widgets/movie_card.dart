@@ -1,5 +1,6 @@
 import 'package:cine_favorite/data/models/movie/movie.dart';
 import 'package:cine_favorite/helper/styles/app_colors.dart';
+import 'package:cine_favorite/helper/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -20,6 +21,8 @@ class MovieCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String currentDate =
+        currentMovie.releaseDate?.toFormattedDate() ?? "Date not available";
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -83,7 +86,6 @@ class MovieCard extends ConsumerWidget {
                               ),
                             ),
                             //ICON FAVORITE WITH NO ACTION
-                            //TODO ACTION FOR FAV
                             InkWell(
                               onTap: () {
                                 onTapFav!();
@@ -98,9 +100,9 @@ class MovieCard extends ConsumerWidget {
                           ],
                         ),
                         Text(
-                          currentMovie.releaseDate ?? "No release date",
+                          currentDate,
                           style: AppTextStyles.content.copyWith(
-                            color: Colors.black87,
+                            color: const Color.fromARGB(221, 185, 249, 6),
                           ),
                         ),
                         Padding(

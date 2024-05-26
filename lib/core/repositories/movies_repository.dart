@@ -8,11 +8,11 @@ class MovieRepository extends RestApiRepository {
 
   MovieRepository({
     required this.tmdbClient,
-  }) : super(mainRoute: '/trending/movie', client: tmdbClient);
+  }) : super(mainRoute: '/movie', client: tmdbClient);
 
   Future<Either<List<Movie>, dynamic>> getTopMoviesDaily() async {
     return await handlingGetResponse(
-      queryRoute: "$controller/day",
+      queryRoute: "$controller/upcoming",
       queryParameters: {
         'language': 'fr',
       },

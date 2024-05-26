@@ -3,6 +3,7 @@ import 'package:cine_favorite/helper/styles/app_colors.dart';
 import 'package:cine_favorite/helper/styles/app_style.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //CUSTOM DIO CLIENT WITH CUSTOM INTERCEPTOR
 Dio getDioClient() {
@@ -94,6 +95,26 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackbar(
       );
       break;
   }
-
   return scaffoldMessengerKey.currentState!.showSnackBar(snackBar);
+}
+
+// FOR CAPITALIZE FIRST LETTER OF STRING
+extension StringExtension on String {
+  String capitalize() {
+    if (isEmpty) {
+      return this;
+    }
+    return '${this[0].toUpperCase()}${substring(1)}';
+  }
+}
+
+// FORMAT THE DATE TO EXAMPLE Mercredi 10 Avril 2024
+extension DateFormatting on String {
+  String toFormattedDate() {
+    if (isEmpty) return "Date not available";
+    DateTime selectedDate = DateTime.parse(this);
+    return DateFormat('EEEE d MMMM yyyy', 'fr_FR')
+        .format(selectedDate)
+        .capitalize();
+  }
 }

@@ -1,21 +1,21 @@
 // Provider for MovieRepository
 import 'package:cine_favorite/core/repositories/movies_repository.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
-import 'package:cine_favorite/data/repository_impl/movie_repository_impl.dart';
+import 'package:cine_favorite/presentation/screens/movie/movie_controller.dart';
 import 'package:cine_favorite/providers/movie/favorite_notifier.dart';
 import 'package:cine_favorite/providers/providers.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final movieApiClientProvider = Provider<MovieRepository>((ref) {
-  final tmdbClient = ref.watch(tmdbHttpClientProvider);
+  final tmdbClient = ref.read(tmdbHttpClientProvider);
   return MovieRepository(tmdbClient: tmdbClient);
 });
 
 // Provider for MovieRepositoryImplementation
-final movieRepositoryProvider = Provider<MovieRepositoryImpl>((ref) {
+final movieRepositoryProvider = Provider<MovieController>((ref) {
   final apiClient = ref.read(movieApiClientProvider);
-  return MovieRepositoryImpl(apiClient);
+  return MovieController(apiClient);
 });
 
 // Provider for fetching movies

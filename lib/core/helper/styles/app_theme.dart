@@ -1,5 +1,5 @@
-import 'package:cine_favorite/helper/styles/app_colors.dart';
-import 'package:cine_favorite/helper/styles/app_text_theme.dart';
+import 'package:cine_favorite/core/helper/styles/app_colors.dart';
+import 'package:cine_favorite/core/helper/styles/app_text_theme.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {

@@ -1,4 +1,4 @@
-import 'package:cine_favorite/core/repositories/helper/crud_api_repository.dart';
+import 'package:cine_favorite/core/helper/crud_api_repository.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';

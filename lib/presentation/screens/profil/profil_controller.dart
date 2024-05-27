@@ -2,10 +2,10 @@ import 'package:cine_favorite/core/repositories/user_repository.dart';
 import 'package:cine_favorite/data/models/user/user.dart';
 import 'package:dartz/dartz.dart';
 
-class UserRepositoryImpl {
+class ProfilController {
   final UserRepository userRepository;
 
-  UserRepositoryImpl(this.userRepository);
+  ProfilController(this.userRepository);
 
 // GETTING CURRENT USER
   Future<Either<dynamic, User>> fetchCurrentUser() async {

@@ -1,8 +1,8 @@
-import 'package:cine_favorite/core/repositories/interceptor/interceptor_logger.dart';
+import 'package:cine_favorite/core/helper/interceptor/interceptor_logger.dart';
 import 'package:dio/dio.dart';
 
-class RestApiInterceptor extends Interceptor {
-  RestApiInterceptor();
+class CustomInterceptor extends Interceptor {
+  CustomInterceptor();
 
   @override
   void onRequest(

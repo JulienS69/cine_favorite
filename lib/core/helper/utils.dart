@@ -1,9 +1,14 @@
-import 'package:cine_favorite/core/repositories/interceptor/rest_api_interceptor.dart';
-import 'package:cine_favorite/helper/styles/app_colors.dart';
-import 'package:cine_favorite/helper/styles/app_style.dart';
+import 'package:cine_favorite/core/helper/interceptor/custom_interceptor.dart';
+import 'package:cine_favorite/core/helper/styles/app_colors.dart';
+import 'package:cine_favorite/core/helper/styles/app_style.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+//SECTION LOTTIES
+const String notFoundLottie = 'assets/lotties/not_found.json';
+const String errorLottie = 'assets/lotties/error.json';
+const String emptyLottie = 'assets/lotties/empty.json';
 
 //CUSTOM DIO CLIENT WITH CUSTOM INTERCEPTOR
 Dio getDioClient() {
@@ -15,7 +20,7 @@ Dio getDioClient() {
   client.options.headers["Accept"] = "application/json";
   client.options.contentType = 'application/json; charset=utf-8';
   client.interceptors.add(
-    RestApiInterceptor(),
+    CustomInterceptor(),
   );
   return client;
 }

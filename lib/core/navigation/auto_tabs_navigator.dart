@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cine_favorite/helper/utils.dart';
-import 'package:cine_favorite/navigation/app_router.dart';
+import 'package:cine_favorite/core/helper/utils.dart';
+import 'package:cine_favorite/core/navigation/app_router.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()

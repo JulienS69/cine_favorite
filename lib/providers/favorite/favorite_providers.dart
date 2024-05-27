@@ -1,6 +1,6 @@
 import 'package:cine_favorite/core/repositories/favorite_repository.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
-import 'package:cine_favorite/data/repository_impl/favorite_movie_repository_impl.dart';
+import 'package:cine_favorite/presentation/screens/favorite/favorite_controller.dart';
 import 'package:cine_favorite/providers/providers.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,9 +11,9 @@ final favoritesMovieApiClientProvider = Provider<FavoriteRepository>((ref) {
 });
 
 // Provider for FavoriteRepositoryImplementation
-final favoriteMovieRepositoryProvider = Provider<FavoriteRepositoryImpl>((ref) {
+final favoriteMovieRepositoryProvider = Provider<FavoriteController>((ref) {
   final apiClient = ref.read(favoritesMovieApiClientProvider);
-  return FavoriteRepositoryImpl(apiClient);
+  return FavoriteController(apiClient);
 });
 
 // Provider for fetching favorites movies

@@ -1,4 +1,4 @@
-import 'package:cine_favorite/helper/utils.dart';
+import 'package:cine_favorite/core/helper/utils.dart';
 import 'package:cine_favorite/providers/movie/movie_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cine_favorite/core/helper/styles/app_colors.dart';
+import 'package:cine_favorite/core/helper/utils.dart';
+import 'package:cine_favorite/core/helper/widgets/empty_content.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
-import 'package:cine_favorite/helper/styles/app_colors.dart';
-import 'package:cine_favorite/helper/utils.dart';
 import 'package:cine_favorite/presentation/screens/movie/widgets/movie_card.dart';
 import 'package:cine_favorite/providers/favorite/favorite_providers.dart';
 import 'package:cine_favorite/providers/movie/movie_provider.dart';
@@ -51,42 +52,54 @@ class FavoritePage extends ConsumerWidget {
             (failure) => const Text(
                 'Erreur: Une erreur est survenue lors de la récupération des films'),
             (favoritesMovies) {
-              return ListView.builder(
-                itemCount: favoritesMovies.length,
-                itemBuilder: (context, index) {
-                  Movie currentMovie = favoritesMovies[index];
-                  final favoriteNotifier = ref.watch(
-                      dislikeMovieNotifierProvider(currentMovie.id ?? 0)
-                          .notifier);
-                  return MovieCard(
-                    currentMovie: currentMovie,
-                    onTapFav: () async {
-                      await HapticFeedback.vibrate();
-                      await favoriteNotifier.toggleFavorite();
-                      // REFRESH API CALL FOR FETCHING MOVIE AFTER UPDATE
-                      // RESET THE PROVIDER SET
-                      ref.invalidate(favortiesMoviesProvider);
-                      ref.read(favortiesMoviesProvider);
-                    },
-                    isFavorite: true,
-                  );
-                },
-              );
+              List<Movie> favoriteMoviesList = favoritesMovies;
+              if (favoriteMoviesList.isEmpty) {
+                return RefreshIndicator(
+                  onRefresh: () => ref.refresh(favortiesMoviesProvider.future),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: const [
+                      Center(
+                        child: EmptyContent(
+                          title: "Aucun film favori trouvé",
+                          lottie: notFoundLottie,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return ListView.builder(
+                  itemCount: favoriteMoviesList.length,
+                  itemBuilder: (context, index) {
+                    Movie currentMovie = favoriteMoviesList[index];
+                    final favoriteNotifier = ref.watch(
+                        dislikeMovieNotifierProvider(currentMovie.id ?? 0)
+                            .notifier);
+                    return MovieCard(
+                      currentMovie: currentMovie,
+                      onTapFav: () async {
+                        await HapticFeedback.vibrate();
+                        await favoriteNotifier.toggleFavorite();
+                        // REFRESH API CALL FOR FETCHING MOVIE AFTER UPDATE
+                        // RESET THE PROVIDER SET
+                        ref.invalidate(favortiesMoviesProvider);
+                        ref.read(favortiesMoviesProvider);
+                      },
+                      isFavorite: true,
+                    );
+                  },
+                );
+              }
             },
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => const Center(
-            child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                'Erreur: Une erreur est survenue lors de la récupération des films',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        )),
+        error: (error, stackTrace) => const EmptyContent(
+          title:
+              "Une erreur est survenue lors de la récupération de vos films favoris",
+          lottie: errorLottie,
+        ),
       ),
     );
   }

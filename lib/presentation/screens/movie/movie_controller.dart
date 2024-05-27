@@ -2,10 +2,10 @@ import 'package:cine_favorite/core/repositories/movies_repository.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
 import 'package:dartz/dartz.dart';
 
-class MovieRepositoryImpl {
+class MovieController {
   final MovieRepository movieRepository;
 
-  MovieRepositoryImpl(this.movieRepository);
+  MovieController(this.movieRepository);
 
 // GETTING MOVIES LIST
   Future<Either<List<Movie>, dynamic>> fetchMovies() async {

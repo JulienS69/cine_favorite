@@ -1,11 +1,11 @@
+import 'package:cine_favorite/core/helper/styles/app_colors.dart';
+import 'package:cine_favorite/core/helper/utils.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
-import 'package:cine_favorite/helper/styles/app_colors.dart';
-import 'package:cine_favorite/helper/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../helper/styles/app_style.dart';
+import '../../../../core/helper/styles/app_style.dart';
 
 class MovieCard extends ConsumerWidget {
   MovieCard({
@@ -13,11 +13,14 @@ class MovieCard extends ConsumerWidget {
     required this.currentMovie,
     required this.onTapFav,
     required this.isFavorite,
+    this.isLoading,
   });
 
   final Movie currentMovie;
   void Function()? onTapFav;
   bool isFavorite;
+  // ENTERING A FALSE IMAGE URL IN IMAGE.NETWORK DURING SKELETON LOADING.
+  bool? isLoading;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,7 +51,9 @@ class MovieCard extends ConsumerWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.network(
-                        'https://image.tmdb.org/t/p/original/${currentMovie.posterPath ?? ""}',
+                        isLoading ?? false
+                            ? 'https://picsum.photos/200/300'
+                            : 'https://image.tmdb.org/t/p/original/${currentMovie.posterPath ?? ""}',
                         gaplessPlayback: true,
                         loadingBuilder: (BuildContext context, Widget child,
                             ImageChunkEvent? loadingProgress) {

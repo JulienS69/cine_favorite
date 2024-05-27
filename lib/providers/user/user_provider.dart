@@ -1,6 +1,6 @@
 import 'package:cine_favorite/core/repositories/user_repository.dart';
 import 'package:cine_favorite/data/models/user/user.dart';
-import 'package:cine_favorite/data/repository_impl/user_repository_impl.dart';
+import 'package:cine_favorite/presentation/screens/profil/profil_controller.dart';
 import 'package:cine_favorite/providers/providers.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,9 +11,9 @@ final userApiClientProvider = Provider<UserRepository>((ref) {
 });
 
 // Provider for MovieRepositoryImplementation
-final userRepositoryProvider = Provider<UserRepositoryImpl>((ref) {
+final userRepositoryProvider = Provider<ProfilController>((ref) {
   final apiClient = ref.read(userApiClientProvider);
-  return UserRepositoryImpl(apiClient);
+  return ProfilController(apiClient);
 });
 
 // Provider for fetching currrent user

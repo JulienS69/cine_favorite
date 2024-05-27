@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cine_favorite/core/helper/styles/app_colors.dart';
+import 'package:cine_favorite/core/helper/utils.dart';
+import 'package:cine_favorite/core/helper/widgets/empty_content.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
-import 'package:cine_favorite/helper/styles/app_colors.dart';
-import 'package:cine_favorite/helper/utils.dart';
 import 'package:cine_favorite/presentation/screens/movie/widgets/movie_card.dart';
 import 'package:cine_favorite/providers/movie/movie_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 @RoutePage()
 class MovieScreen extends StatelessWidget {
@@ -65,18 +67,26 @@ class MoviesPage extends ConsumerWidget {
           },
         );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => const Center(
-          child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              'Erreur: Une erreur est survenue lors de la récupération des films',
-              textAlign: TextAlign.center,
-            ),
+      loading: () {
+        Movie emptyMovie = const Movie();
+        return Skeletonizer(
+          child: ListView.builder(
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return MovieCard(
+                currentMovie: emptyMovie,
+                onTapFav: () {},
+                isFavorite: false,
+                isLoading: true,
+              );
+            },
           ),
-        ],
-      )),
+        );
+      },
+      error: (error, stackTrace) => const EmptyContent(
+        title: "Une erreur est survenue lors de la récupération des films",
+        lottie: errorLottie,
+      ),
     );
   }
 }

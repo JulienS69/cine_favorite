@@ -13,7 +13,7 @@ class AutoTabsNavigatorScreen extends StatelessWidget {
       routes: const [
         MovieRoute(),
         FavoriteRoute(),
-        //TODO OTHER ROUTE
+        ProfilRoute(),
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);

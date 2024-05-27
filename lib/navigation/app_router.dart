@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cine_favorite/navigation/auto_tabs_navigator.dart';
 import 'package:cine_favorite/presentation/screens/favorite/favorite_screen.dart';
 import 'package:cine_favorite/presentation/screens/movie/movie_screen.dart';
+import 'package:cine_favorite/presentation/screens/profil/profil_screen.dart';
 
 part 'app_router.gr.dart';
 
@@ -15,6 +16,9 @@ class AppRouter extends _$AppRouter {
           ),
           AutoRoute(
             page: FavoriteRoute.page,
+          ),
+          AutoRoute(
+            page: ProfilRoute.page,
           ),
         ])
       ];

@@ -3,12 +3,12 @@ import 'package:cine_favorite/data/models/movie/movie.dart';
 import 'package:dartz/dartz.dart';
 
 class FavoriteRepositoryImpl {
-  final FavoriteRepository apiClient;
+  final FavoriteRepository favoriteRepository;
 
-  FavoriteRepositoryImpl(this.apiClient);
+  FavoriteRepositoryImpl(this.favoriteRepository);
 
 // GETTING FAVORITE MOVIES
   Future<Either<List<Movie>, dynamic>> fetchFavoritesMovies() async {
-    return await apiClient.getFavoritesMovies();
+    return await favoriteRepository.getFavoritesMovies();
   }
 }

@@ -33,6 +33,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MovieScreen(),
       );
     },
+    ProfilRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ProfilScreen(),
+      );
+    },
   };
 }
 
@@ -74,6 +80,20 @@ class MovieRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MovieRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ProfilScreen]
+class ProfilRoute extends PageRouteInfo<void> {
+  const ProfilRoute({List<PageRouteInfo>? children})
+      : super(
+          ProfilRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfilRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

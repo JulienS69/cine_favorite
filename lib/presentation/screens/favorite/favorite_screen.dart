@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cine_favorite/data/models/movie/movie.dart';
+import 'package:cine_favorite/helper/styles/app_colors.dart';
 import 'package:cine_favorite/helper/utils.dart';
 import 'package:cine_favorite/presentation/screens/movie/widgets/movie_card.dart';
 import 'package:cine_favorite/providers/favorite/favorite_providers.dart';
@@ -15,9 +16,21 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(title: "Favorite"),
-      body: const Center(
-        child: FavoritePage(),
+      appBar: getAppBar(title: "Films favoris"),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.white60,
+              AppColors.primary,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: const Center(
+          child: FavoritePage(),
+        ),
       ),
     );
   }

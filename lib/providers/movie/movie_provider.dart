@@ -34,11 +34,11 @@ final favoriteNotifierProvider =
   },
 );
 
-//Provider for adding movies to a favorites list
-final disslikeMovieNotifierProvider =
+//Provider when disliking a movie from a favorites list
+final dislikeMovieNotifierProvider =
     StateNotifierProvider.family<FavoriteNotifier, bool, int>(
   (ref, movieId) {
     return FavoriteNotifier(ref,
-        movieId: movieId, isFavorite: false, isDissliked: true);
+        movieId: movieId, isFavorite: false, isDisliked: true);
   },
 );

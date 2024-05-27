@@ -43,7 +43,7 @@ class FavoritePage extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   Movie currentMovie = favoritesMovies[index];
                   final favoriteNotifier = ref.watch(
-                      disslikeMovieNotifierProvider(currentMovie.id ?? 0)
+                      dislikeMovieNotifierProvider(currentMovie.id ?? 0)
                           .notifier);
                   return MovieCard(
                     currentMovie: currentMovie,
@@ -51,7 +51,9 @@ class FavoritePage extends ConsumerWidget {
                       await HapticFeedback.vibrate();
                       await favoriteNotifier.toggleFavorite();
                       // REFRESH API CALL FOR FETCHING MOVIE AFTER UPDATE
-                      await ref.refresh(favortiesMoviesProvider.future);
+                      // RESET THE PROVIDER SET
+                      ref.invalidate(favortiesMoviesProvider);
+                      ref.read(favortiesMoviesProvider);
                     },
                     isFavorite: true,
                   );

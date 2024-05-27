@@ -7,21 +7,23 @@ class FavoriteNotifier extends StateNotifier<bool> {
     this.ref, {
     required this.movieId,
     required bool isFavorite,
-    this.isDissliked,
+    this.isDisliked,
   }) : super(isFavorite);
 
   final StateNotifierProviderRef<FavoriteNotifier, bool> ref;
   final int movieId;
-  final bool? isDissliked;
+  // FROM FAVORITE PAGE
+  final bool? isDisliked;
 
+//Method executing the API call and updating the state of the boolean
   Future<void> toggleFavorite() async {
     final newFavoriteState = !state;
     final repository = ref.read(movieRepositoryProvider);
-    final bool isDisslikedMovie = isDissliked ?? false;
+    final bool isDislikedMovie = isDisliked ?? false;
     await repository
         .updateMovie(
           movieId: movieId,
-          isFavorite: isDisslikedMovie ? false : newFavoriteState,
+          isFavorite: isDislikedMovie ? false : newFavoriteState,
         )
         .then(
           (either) => either.fold(
@@ -29,15 +31,36 @@ class FavoriteNotifier extends StateNotifier<bool> {
               showSnackbar("Un problème est survenu", SnackStatusEnum.error);
             },
             (success) {
-              state = newFavoriteState;
-              if (isDisslikedMovie) {
-                showSnackbar("Supprimé des favoris", SnackStatusEnum.success);
-              } else {
-                showSnackbar("Mise à jour réussi", SnackStatusEnum.success);
-              }
+              updateFavoriteStatus(
+                isDislikedMovie: isDislikedMovie,
+                newFavoriteState: newFavoriteState,
+                success: success,
+              );
             },
           ),
         )
         .catchError((err) {});
+  }
+
+//Method to display the appropriate message based on the status code when updating the movie
+  void updateFavoriteStatus({
+    required bool isDislikedMovie,
+    required dynamic success,
+    required var newFavoriteState,
+  }) {
+    String message;
+
+    if (isDislikedMovie || success['status_code'] == 13) {
+      message = "Supprimé des favoris";
+      state = newFavoriteState;
+      showSnackbar(message, SnackStatusEnum.success);
+    } else if (success['status_code'] == 12) {
+      message = "Ce film fait déjà partie de vos favoris";
+      showSnackbar(message, SnackStatusEnum.warning);
+    } else {
+      message = "Film ajouté aux favoris";
+      state = newFavoriteState;
+      showSnackbar(message, SnackStatusEnum.success);
+    }
   }
 }

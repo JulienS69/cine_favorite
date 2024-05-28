@@ -11,7 +11,7 @@ The purpose of this project is to display recently released movies in theaters a
 
 Démo de l'application : 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KF8WJfuSutM" frameborder="0" allowfullscreen></iframe>
+https://www.youtube.com/embed/KF8WJfuSutM
 
 # Architecture du Projet
 

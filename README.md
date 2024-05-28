@@ -9,6 +9,10 @@ A Flutter mobile project that utilizes The Movie Database API and the Riverpod p
 
 The purpose of this project is to display recently released movies in theaters and allow users to add them to their favorites. It also includes navigation management.
 
+Démo de l'application : 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KF8WJfuSutM" frameborder="0" allowfullscreen></iframe>
+
 # Architecture du Projet
 
 ## lib/

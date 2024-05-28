@@ -1,4 +1,4 @@
-# cine_favorite
+# Ciné Favorite
 
 A Flutter mobile project that utilizes The Movie Database API and the Riverpod package for application state management.
 

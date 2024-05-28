@@ -2,6 +2,11 @@
 
 A Flutter mobile project that utilizes The Movie Database API and the Riverpod package for application state management.
 
+![2](https://github.com/JulienS69/cine_favorite/assets/60474003/3784e9cc-cf88-4c0e-b306-ad226b8c2b0d)
+![1](https://github.com/JulienS69/cine_favorite/assets/60474003/6972dc8e-3c40-44c6-9fa0-2d6bb6e823d2)
+
+
+
 ## Objective
 
 The purpose of this project is to display recently released movies in theaters and allow users to add them to their favorites. It also includes navigation management.
